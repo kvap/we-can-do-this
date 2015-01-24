@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
 	scenes.push_back(new GamePlay());
 	scenes.push_back(new FinalInfo());
 	scenes.push_back(new Credits());
+	scenes.push_back(new Editor());
 
 	sf::ContextSettings settings;
 	settings.depthBits = 24;

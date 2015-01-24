@@ -1,11 +1,11 @@
-#include "loger.hpp"
+#include "Loggable.hpp"
 
-Loger::Loger(const string objectName)
+Loggable::Loggable(const string objectName)
 {
 	this->_objectName = objectName;
 }
 
-void Loger::Log(const string info)
+void Loggable::Log(const string info)
 {
 	time_t t = time(0);
 	struct tm * now = localtime(&t);

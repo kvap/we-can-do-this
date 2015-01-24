@@ -7,11 +7,11 @@
 
 using namespace std;
 
-class Loger
+class Loggable
 {
 public:
-	Loger(const string objectName);
-	void Log() = 0;
+	Loggable(const string objectName);
+	virtual void Log() = 0;
 	
 protected:
 	void Log(const string info);

@@ -44,6 +44,9 @@ int Intro::run(sf::RenderWindow &window) {
 					case sf::Keyboard::Space:
 						return BASE_INFO_SCENE;
 						break;
+					case sf::Keyboard::E:
+						return EDITOR_SCENE;
+						break;
 				}
 			}
 		}

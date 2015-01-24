@@ -1,7 +1,7 @@
 CXX = g++
-LIBS = sfml-graphics sfml-window sfml-system gl
-CFLAGS = -c -g -std=c++11 $(shell pkg-config --cflags $(LIBS)) -Isources
-LDFLAGS = -Wall $(shell pkg-config --libs $(LIBS))
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lGL
+CFLAGS = -c -g -std=c++11 -Isources
+LDFLAGS = -Wall $(LIBS)
 
 TARGET_DIR = target
 SOURCE_DIR = sources

@@ -23,9 +23,9 @@ int BaseInfo::run(sf::RenderWindow &window) {
     sf::Sprite sprite(texture);
 	sf::Text text;
 	text.setFont(font);
-	text.setString(L"Что случилось?");
+	text.setString(L"Р§С‚Рѕ СЃР»СѓС‡РёР»РѕСЃСЊ?");
 	text.setCharacterSize(48);
-	text.setColor(sf::Color::Color(112,146,190,255));	
+	text.setColor(sf::Color(112,146,190,255));	
 	text.setPosition(deltaX,deltaY);
 	sprite.setPosition(100,100);
 	text.setPosition(100+deltaX,100+deltaY);
@@ -62,25 +62,25 @@ int BaseInfo::run(sf::RenderWindow &window) {
 		elapsedSeconds += dt;
 		clock.restart();
 		if (dt>3 && i==1){
-			text.setString(L"Кто здесь?");
+			text.setString(L"РљС‚Рѕ Р·РґРµСЃСЊ?");
 			sprite.setPosition(130,150);
 	        text.setPosition(130+deltaX,150+deltaY);
 			i++;
 		}
 		if (dt>6 && i==2){
-			text.setString(L"Я...я... кто я?");
+			text.setString(L"РЇ...СЏ... РєС‚Рѕ СЏ?");
 			sprite.setPosition(80,180);
 	        text.setPosition(80+deltaX,180+deltaY);
 			i++;
 		}
 		if (dt>9 && i==3){
-			text.setString(L"Я ничего не помню");
+			text.setString(L"РЇ РЅРёС‡РµРіРѕ РЅРµ РїРѕРјРЅСЋ");
 			sprite.setPosition(130,80);
 	        text.setPosition(130+deltaX,80+deltaY);
 			i++;
 		}
 		if (dt>12 && i==4){
-			text.setString(L"Где мы? Что произошло?");
+			text.setString(L"Р“РґРµ РјС‹? Р§С‚Рѕ РїСЂРѕРёР·РѕС€Р»Рѕ?");
 			sprite.setScale(1.5,1);
 			sprite.setPosition(50,220);
 	        text.setPosition(50+deltaX,220+deltaY);
@@ -88,14 +88,14 @@ int BaseInfo::run(sf::RenderWindow &window) {
 		}
 		if (dt>15 && i==5){
 			sprite.setScale(1,1);
-			text.setString(L"Ничего не вижу");
+			text.setString(L"РќРёС‡РµРіРѕ РЅРµ РІРёР¶Сѓ");
 			sprite.setPosition(130,250);
 	        text.setPosition(130+deltaX,250+deltaY);
 			i++;
 		}
 		if (dt>18 && i==6){
 			sprite.setScale(1.5,1);
-			text.setString(L"Кто-нибудь, включите свет!");
+			text.setString(L"РљС‚Рѕ-РЅРёР±СѓРґСЊ, РІРєР»СЋС‡РёС‚Рµ СЃРІРµС‚!");
 			sprite.setPosition(20,150);
 	        text.setPosition(20+deltaX,150+deltaY);
 			i++;

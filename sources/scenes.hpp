@@ -8,5 +8,6 @@
 #include "scenes/GamePlay.hpp"
 #include "scenes/FinalInfo.hpp"
 #include "scenes/Credits.hpp"
+#include "scenes/Editor.hpp"
 
 #endif // SCENES_HPP
