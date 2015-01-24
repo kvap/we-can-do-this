@@ -29,12 +29,6 @@ int GamePlay::run(sf::RenderWindow &window) {
 			} else if (event.type == sf::Event::Resized) {
 				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 				window.setView(sf::View(visibleArea));
-			} else if (event.type == sf::Event::KeyPressed) {
-				switch (event.key.code) {
-					case sf::Keyboard::Space:
-						return FINAL_INFO_SCENE;
-						break;
-				}
 			} else if (event.type == sf::Event::KeyReleased) {
 				switch (event.key.code) {
 					case sf::Keyboard::Space:

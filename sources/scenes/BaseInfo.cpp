@@ -43,12 +43,6 @@ int BaseInfo::run(sf::RenderWindow &window) {
 			} else if (event.type == sf::Event::Resized) {
 				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 				window.setView(sf::View(visibleArea));
-			} else if (event.type == sf::Event::KeyPressed) {
-				switch (event.key.code) {
-					case sf::Keyboard::Space:
-						return GAME_PLAY_SCENE;
-						break;
-				}
 			} else if (event.type == sf::Event::KeyReleased) {
 				switch (event.key.code) {
 					case sf::Keyboard::Space:
@@ -58,46 +52,44 @@ int BaseInfo::run(sf::RenderWindow &window) {
 			}
 		}
 
-		float dt = clock.getElapsedTime().asSeconds();
-		elapsedSeconds += dt;
-		clock.restart();
-		if (dt>3 && i==1){
+		elapsedSeconds = clock.getElapsedTime().asSeconds();
+		if (elapsedSeconds>3 && i==1){
 			text.setString(L"Кто здесь?");
 			sprite.setPosition(130,150);
-	        text.setPosition(130+deltaX,150+deltaY);
+			text.setPosition(130+deltaX,150+deltaY);
 			i++;
 		}
-		if (dt>6 && i==2){
+		if (elapsedSeconds>6 && i==2){
 			text.setString(L"Я...я... кто я?");
 			sprite.setPosition(80,180);
-	        text.setPosition(80+deltaX,180+deltaY);
+			text.setPosition(80+deltaX,180+deltaY);
 			i++;
 		}
-		if (dt>9 && i==3){
+		if (elapsedSeconds>9 && i==3){
 			text.setString(L"Я ничего не помню");
 			sprite.setPosition(130,80);
-	        text.setPosition(130+deltaX,80+deltaY);
+			text.setPosition(130+deltaX,80+deltaY);
 			i++;
 		}
-		if (dt>12 && i==4){
+		if (elapsedSeconds>12 && i==4){
 			text.setString(L"Где мы? Что произошло?");
 			sprite.setScale(1.5,1);
 			sprite.setPosition(50,220);
-	        text.setPosition(50+deltaX,220+deltaY);
+			text.setPosition(50+deltaX,220+deltaY);
 			i++;
 		}
-		if (dt>15 && i==5){
+		if (elapsedSeconds>15 && i==5){
 			sprite.setScale(1,1);
 			text.setString(L"Ничего не вижу");
 			sprite.setPosition(130,250);
-	        text.setPosition(130+deltaX,250+deltaY);
+			text.setPosition(130+deltaX,250+deltaY);
 			i++;
 		}
-		if (dt>18 && i==6){
+		if (elapsedSeconds>18 && i==6){
 			sprite.setScale(1.5,1);
 			text.setString(L"Кто-нибудь, включите свет!");
 			sprite.setPosition(20,150);
-	        text.setPosition(20+deltaX,150+deltaY);
+			text.setPosition(20+deltaX,150+deltaY);
 			i++;
 		}
 
