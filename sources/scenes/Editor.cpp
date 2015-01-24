@@ -1,23 +1,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "sceneIds.hpp"
+#include "Editor.hpp"
 #include "Object.hpp"
 
 const int levelSize = 128;
 
-int main() {
-	sf::ContextSettings settings;
-	settings.depthBits = 24;
-
-	sf::RenderWindow window(sf::VideoMode(640, 480), "We Can Do This!", sf::Style::Default, settings);
-
-	settings = window.getSettings();
-
-	std::cout << "depth bits:" << settings.depthBits << std::endl;
-	std::cout << "stencil bits:" << settings.stencilBits << std::endl;
-	std::cout << "antialiasing level:" << settings.antialiasingLevel << std::endl;
-	std::cout << "version:" << settings.majorVersion << "." << settings.minorVersion << std::endl;
-
+int Editor::run(sf::RenderWindow &window) {
 	const std::string texfile = "tiles.png";
 	sf::Texture tilemap;
 	if (!tilemap.loadFromFile(texfile)) {
@@ -54,12 +44,15 @@ int main() {
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				window.close();
+				return -1;
 			} else if (event.type == sf::Event::Resized) {
 				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 				window.setView(sf::View(visibleArea));
 			} else if (event.type == sf::Event::KeyReleased) {
 				switch (event.key.code) {
+					case sf::Keyboard::Escape:
+						return -1;
+						break;
 					case sf::Keyboard::Left:
 						x--;
 						break;
@@ -168,7 +161,6 @@ int main() {
 							break;
 					}
 				}
-
 			}
 		}
 		if (x < 0) {
@@ -276,5 +268,5 @@ int main() {
 		window.display();
 	}
 
-	return 0;
+	return -1;
 }
