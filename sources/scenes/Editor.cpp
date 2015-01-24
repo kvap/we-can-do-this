@@ -14,6 +14,13 @@ int Editor::run(sf::RenderWindow &window) {
 		return 1;
 	}
 
+	const std::string skyfile = "milky-way.jpg";
+	sf::Texture skytex;
+	if (!skytex.loadFromFile(skyfile)) {
+		std::cerr << "could not load sky: " << skyfile << std::endl;
+		return 1;
+	}
+
 	const std::string fontfile = "DejaVuSans.ttf";
 	sf::Font font;
 	if (!font.loadFromFile(fontfile)) {
@@ -22,6 +29,7 @@ int Editor::run(sf::RenderWindow &window) {
 	}
 
 	Ship ship;
+	ship.load("ship.map", tilemap);
 
 	int x = ship.getWidth() / 2;
 	int y = ship.getHeight() / 2;
@@ -36,6 +44,8 @@ int Editor::run(sf::RenderWindow &window) {
 	cursor.setOutlineColor(sf::Color(255, 255, 127, 255));
 	cursor.setFillColor(sf::Color(255, 127, 127, 127));
 
+	sf::Sprite sky(skytex);
+
 	sf::Clock clock;
 	while (window.isOpen()) {
 		sf::Event event;
@@ -48,6 +58,10 @@ int Editor::run(sf::RenderWindow &window) {
 			} else if (event.type == sf::Event::KeyReleased) {
 				switch (event.key.code) {
 					case sf::Keyboard::Escape:
+						return -1;
+						break;
+					case sf::Keyboard::F2:
+						ship.save("ship.map");
 						return -1;
 						break;
 					case sf::Keyboard::Left:
@@ -175,10 +189,12 @@ int Editor::run(sf::RenderWindow &window) {
 
 		sf::View view = window.getView();
 		cursor.setPosition(sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE));
+		sky.setPosition(sf::Vector2f(x * TILE_SIZE - skytex.getSize().x / 2, y * TILE_SIZE - skytex.getSize().y / 2));
 		view.setCenter(sf::Vector2f((x + 0.5) * TILE_SIZE, (y + 0.5) * TILE_SIZE));
 		window.setView(view);
 
 		window.clear();
+		window.draw(sky);
 		ship.draw(window);
 		window.draw(cursor);
 
@@ -196,14 +212,14 @@ int Editor::run(sf::RenderWindow &window) {
 		}
 
 		o = ship.getObject(LEVEL_MG, x, y);
-		if (0 == NULL) {
+		if (o == NULL) {
 			cellinfo += std::string("\nmg = NULL");
 		} else {
 			cellinfo += std::string("\nmg = " + o->getName());
 		}
 
 		o = ship.getObject(LEVEL_BG, x, y);
-		if (0 == NULL) {
+		if (o == NULL) {
 			cellinfo += std::string("\nbg = NULL");
 		} else {
 			cellinfo += std::string("\nbg = " + o->getName());

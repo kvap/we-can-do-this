@@ -22,6 +22,8 @@ class Ship {
 	public:
 		Ship();
 		~Ship();
+		void load(std::string filename, sf::Texture &tilemap);
+		void save(std::string filename);
 		int getWidth();
 		int getHeight();
 		Object *getObject(int level, int x, int y);

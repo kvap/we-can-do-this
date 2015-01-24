@@ -4,6 +4,7 @@
 Object::Object(int x, int y, int tile, sf::Texture &tilemap) {
 	this->x = x;
 	this->y = y;
+	this->tile = tile;
 	sprite.setTexture(tilemap);
 	int top = tiles[tile][0] * TILE_SIZE;
 	int left = tiles[tile][1] * TILE_SIZE;

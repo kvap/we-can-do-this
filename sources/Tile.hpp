@@ -27,7 +27,8 @@ enum {
 	TILE_DYNAMO,
 	TILE_HATCH,
 	TILE_WALL,
-	TILE_JACUZZI
+	TILE_JACUZZI,
+	TILE_EMPTY = -1
 };
 
 extern int tiles[][4];

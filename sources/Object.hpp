@@ -10,9 +10,11 @@ class Object {
 		sf::Sprite sprite;
 	protected:
 		int x, y;
+		int tile;
 	public:
 		Object(int x, int y, int tile, sf::Texture &tilemap);
 		void draw(sf::RenderWindow &window);
+		int getTile() { return tile; };
 		virtual std::string getName() { return "object"; };
 		virtual void use(Object &user) = 0;
 		virtual bool usable(Object &user) { return false; };
