@@ -38,7 +38,9 @@ INERT(FloorHospital, TILE_FLOOR_HOSPITAL, "Hospital Floor");
 INERT(FloorGuard, TILE_FLOOR_GUARD, "Guard Floor");
 INERT(FloorMess, TILE_FLOOR_MESS, "Mess Floor");
 INERT(FloorBridge, TILE_FLOOR_BRIDGE, "Bridge Floor");
+
 INERT(Respawn, TILE_RESPAWN, "Respawn");
+
 INERT(Stick, TILE_STICK, "Stick");
 INERT(Toilet, TILE_TOILET, "Toilet");
 INERT(Multicooker, TILE_MULTICOOKER, "Multicooker");

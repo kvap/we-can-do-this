@@ -4,8 +4,7 @@
 #include "sceneIds.hpp"
 #include "Editor.hpp"
 #include "Object.hpp"
-
-const int levelSize = 128;
+#include "Ship.hpp"
 
 int Editor::run(sf::RenderWindow &window) {
 	const std::string texfile = "tiles.png";
@@ -22,12 +21,10 @@ int Editor::run(sf::RenderWindow &window) {
 		return 1;
 	}
 
-	int x = levelSize / 2, y = levelSize / 2;
+	Ship ship;
 
-	Object *bg[levelSize][levelSize] = {0};
-	Object *mg[levelSize][levelSize] = {0};
-	Object *fg[levelSize][levelSize] = {0};
-	Object *(*currentLayer)[128] = bg;
+	int x = ship.getWidth() / 2;
+	int y = ship.getHeight() / 2;
 
 	sf::Text text;
 	text.setFont(font);
@@ -66,98 +63,95 @@ int Editor::run(sf::RenderWindow &window) {
 						y++;
 						break;
 					case sf::Keyboard::Num1:
-						currentLayer = bg;
+						ship.setCurrentLevel(LEVEL_BG);
 						break;
 					case sf::Keyboard::Num2:
-						currentLayer = mg;
+						ship.setCurrentLevel(LEVEL_MG);
 						break;
 					case sf::Keyboard::Num3:
-						currentLayer = fg;
+						ship.setCurrentLevel(LEVEL_FG);
 						break;
 					case sf::Keyboard::X:
-						if (currentLayer[y][x] != NULL) {
-							delete currentLayer[y][x];
-							currentLayer[y][x] = NULL;
-						}
+						ship.putObject(x, y, NULL);
 						break;
 				}
-				if (currentLayer == bg) {
+				if (ship.getCurrentLevel() == LEVEL_BG) {
 					switch (event.key.code) {
 						case sf::Keyboard::W:
-							currentLayer[y][x] = new FloorWC(x, y, tilemap);
+							ship.putObject(x, y, new FloorWC(x, y, tilemap));
 							break;
 						case sf::Keyboard::J:
-							currentLayer[y][x] = new FloorJail(x, y, tilemap);
+							ship.putObject(x, y, new FloorJail(x, y, tilemap));
 							break;
 						case sf::Keyboard::L:
-							currentLayer[y][x] = new FloorLab(x, y, tilemap);
+							ship.putObject(x, y, new FloorLab(x, y, tilemap));
 							break;
 						case sf::Keyboard::Q:
-							currentLayer[y][x] = new FloorQuarters(x, y, tilemap);
+							ship.putObject(x, y, new FloorQuarters(x, y, tilemap));
 							break;
 						case sf::Keyboard::R:
-							currentLayer[y][x] = new FloorRNR(x, y, tilemap);
+							ship.putObject(x, y, new FloorRNR(x, y, tilemap));
 							break;
 						case sf::Keyboard::C:
-							currentLayer[y][x] = new FloorCorridor(x, y, tilemap);
+							ship.putObject(x, y, new FloorCorridor(x, y, tilemap));
 							break;
 						case sf::Keyboard::E:
-							currentLayer[y][x] = new FloorEngine(x, y, tilemap);
+							ship.putObject(x, y, new FloorEngine(x, y, tilemap));
 							break;
 						case sf::Keyboard::H:
-							currentLayer[y][x] = new FloorHospital(x, y, tilemap);
+							ship.putObject(x, y, new FloorHospital(x, y, tilemap));
 							break;
 						case sf::Keyboard::G:
-							currentLayer[y][x] = new FloorGuard(x, y, tilemap);
+							ship.putObject(x, y, new FloorGuard(x, y, tilemap));
 							break;
 						case sf::Keyboard::M:
-							currentLayer[y][x] = new FloorMess(x, y, tilemap);
+							ship.putObject(x, y, new FloorMess(x, y, tilemap));
 							break;
 						case sf::Keyboard::B:
-							currentLayer[y][x] = new FloorBridge(x, y, tilemap);
+							ship.putObject(x, y, new FloorBridge(x, y, tilemap));
 							break;
 					}
 				}
-				if (currentLayer == fg) {
+				if (ship.getCurrentLevel() == LEVEL_FG) {
 					switch (event.key.code) {
 						case sf::Keyboard::P:
-							currentLayer[y][x] = new Respawn(x, y, tilemap);
+							ship.putObject(x, y, new Respawn(x, y, tilemap));
 							break;
 						case sf::Keyboard::S:
-							currentLayer[y][x] = new Stick(x, y, tilemap);
+							ship.putObject(x, y, new Stick(x, y, tilemap));
 							break;
 						case sf::Keyboard::T:
-							currentLayer[y][x] = new Toilet(x, y, tilemap);
+							ship.putObject(x, y, new Toilet(x, y, tilemap));
 							break;
 						case sf::Keyboard::M:
-							currentLayer[y][x] = new Multicooker(x, y, tilemap);
+							ship.putObject(x, y, new Multicooker(x, y, tilemap));
 							break;
 						case sf::Keyboard::G:
-							currentLayer[y][x] = new GuardStand(x, y, tilemap);
+							ship.putObject(x, y, new GuardStand(x, y, tilemap));
 							break;
 						case sf::Keyboard::B:
-							currentLayer[y][x] = new BioChamber(x, y, tilemap);
+							ship.putObject(x, y, new BioChamber(x, y, tilemap));
 							break;
 						case sf::Keyboard::Z:
-							currentLayer[y][x] = new Microscope(x, y, tilemap);
+							ship.putObject(x, y, new Microscope(x, y, tilemap));
 							break;
 						case sf::Keyboard::C:
-							currentLayer[y][x] = new Couch(x, y, tilemap);
+							ship.putObject(x, y, new Couch(x, y, tilemap));
 							break;
 						case sf::Keyboard::E:
-							currentLayer[y][x] = new Engine(x, y, tilemap);
+							ship.putObject(x, y, new Engine(x, y, tilemap));
 							break;
 						case sf::Keyboard::D:
-							currentLayer[y][x] = new Dynamo(x, y, tilemap);
+							ship.putObject(x, y, new Dynamo(x, y, tilemap));
 							break;
 						case sf::Keyboard::H:
-							currentLayer[y][x] = new Hatch(x, y, tilemap);
+							ship.putObject(x, y, new Hatch(x, y, tilemap));
 							break;
 						case sf::Keyboard::W:
-							currentLayer[y][x] = new Wall(x, y, tilemap);
+							ship.putObject(x, y, new Wall(x, y, tilemap));
 							break;
 						case sf::Keyboard::J:
-							currentLayer[y][x] = new Jacuzzi(x, y, tilemap);
+							ship.putObject(x, y, new Jacuzzi(x, y, tilemap));
 							break;
 					}
 				}
@@ -166,14 +160,14 @@ int Editor::run(sf::RenderWindow &window) {
 		if (x < 0) {
 			x = 0;
 		}
-		if (x >= levelSize) {
-			x = levelSize - 1;
+		if (x >= ship.getWidth()) {
+			x = ship.getWidth() - 1;
 		}
 		if (y < 0) {
 			y = 0;
 		}
-		if (y >= levelSize) {
-			y = levelSize - 1;
+		if (y >= ship.getHeight()) {
+			y = ship.getHeight() - 1;
 		}
 
 		float dt = clock.getElapsedTime().asSeconds();
@@ -185,25 +179,7 @@ int Editor::run(sf::RenderWindow &window) {
 		window.setView(view);
 
 		window.clear();
-		for (int row = 0; row < levelSize; row++) {
-			for (int col = 0; col < levelSize; col++) {
-				if (bg[row][col] != NULL) {
-					bg[row][col]->draw(window);
-				}
-				if (currentLayer == bg) {
-					continue;
-				}
-				if (mg[row][col] != NULL) {
-					mg[row][col]->draw(window);
-				}
-				if (currentLayer == mg) {
-					continue;
-				}
-				if (fg[row][col] != NULL) {
-					fg[row][col]->draw(window);
-				}
-			}
-		}
+		ship.draw(window);
 		window.draw(cursor);
 
 		auto winsize = window.getSize();
@@ -211,25 +187,29 @@ int Editor::run(sf::RenderWindow &window) {
 		window.setView(hud);
 		std::string cellinfo = std::to_string(x) + ":" + std::to_string(y);
 
-		if (fg[y][x] == NULL) {
+		Object *o;
+		o = ship.getObject(LEVEL_FG, x, y);
+		if (o == NULL) {
 			cellinfo += std::string("\nfg = NULL");
 		} else {
-			cellinfo += std::string("\nfg = " + fg[y][x]->getName());
+			cellinfo += std::string("\nfg = " + o->getName());
 		}
 
-		if (mg[y][x] == NULL) {
+		o = ship.getObject(LEVEL_MG, x, y);
+		if (0 == NULL) {
 			cellinfo += std::string("\nmg = NULL");
 		} else {
-			cellinfo += std::string("\nmg = " + mg[y][x]->getName());
+			cellinfo += std::string("\nmg = " + o->getName());
 		}
 
-		if (bg[y][x] == NULL) {
+		o = ship.getObject(LEVEL_BG, x, y);
+		if (0 == NULL) {
 			cellinfo += std::string("\nbg = NULL");
 		} else {
-			cellinfo += std::string("\nbg = " + bg[y][x]->getName());
+			cellinfo += std::string("\nbg = " + o->getName());
 		}
 
-		if (currentLayer == bg) {
+		if (ship.getCurrentLevel() == LEVEL_BG) {
 			cellinfo += std::string("\ncurrent bg");
 			cellinfo += std::string("\nw - wc floor");
 			cellinfo += std::string("\nj - jail floor");
@@ -242,7 +222,7 @@ int Editor::run(sf::RenderWindow &window) {
 			cellinfo += std::string("\ng - guard floor");
 			cellinfo += std::string("\nm - mess floor");
 			cellinfo += std::string("\nb - bridge floor");
-		} else if (currentLayer == mg) {
+		} else if (ship.getCurrentLevel() == LEVEL_MG) {
 			cellinfo += std::string("\ncurrent mg");
 		} else {
 			cellinfo += std::string("\ncurrent fg");

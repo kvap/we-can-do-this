@@ -25,5 +25,5 @@ int tiles[][4] = {
 	{1,  9, 1, 1}, // TILE_DYNAMO,
 	{1, 10, 1, 1}, // TILE_HATCH,
 	{1, 11, 1, 1}, // TILE_WALL,
-	{1, 12, 1, 1}, // TILE_JACUZZI
+	{1, 12, 2, 1}, // TILE_JACUZZI
 };
