@@ -53,7 +53,14 @@ INERT(Couch, TILE_COUCH, "Couch");
 INERT(Engine, TILE_ENGINE, "Engine");
 INERT(Dynamo, TILE_DYNAMO, "Dynamo");
 INERT(Hatch, TILE_HATCH, "Hatch");
-INERT(Wall, TILE_WALL, "Wall");
+INERT(WallW, TILE_WALL_W, "Wall W");
+INERT(WallQ, TILE_WALL_Q, "Wall Q");
+INERT(WallA, TILE_WALL_A, "Wall A");
+INERT(WallZ, TILE_WALL_Z, "Wall Z");
+INERT(WallX, TILE_WALL_X, "Wall X");
+INERT(WallC, TILE_WALL_C, "Wall C");
+INERT(WallD, TILE_WALL_D, "Wall D");
+INERT(WallE, TILE_WALL_E, "Wall E");
 INERT(Jacuzzi, TILE_JACUZZI, "Jacuzzi");
 
 #endif
