@@ -39,39 +39,39 @@ class Object {
 			void use(Creature *user) {};\
 	}
 
-INERT(FloorJail, TILE_FLOOR_JAIL, "Jail Floor");
-INERT(FloorLab, TILE_FLOOR_LAB, "Lab Floor");
-INERT(FloorQuarters, TILE_FLOOR_QUARTERS, "Quarters Floor");
-INERT(FloorWC, TILE_FLOOR_WC, "WC Floor");
-INERT(FloorRNR, TILE_FLOOR_RNR, "RNR Floor");
-INERT(FloorCorridor, TILE_FLOOR_CORRIDOR, "Corridor Floor");
-INERT(FloorEngine, TILE_FLOOR_ENGINE, "Engine Floor");
-INERT(FloorHospital, TILE_FLOOR_HOSPITAL, "Hospital Floor");
-INERT(FloorGuard, TILE_FLOOR_GUARD, "Guard Floor");
-INERT(FloorMess, TILE_FLOOR_MESS, "Mess Floor");
-INERT(FloorBridge, TILE_FLOOR_BRIDGE, "Bridge Floor");
+INERT(FloorJail, Tile::TILE_FLOOR_JAIL, "Jail Floor");
+INERT(FloorLab, Tile::TILE_FLOOR_LAB, "Lab Floor");
+INERT(FloorQuarters, Tile::TILE_FLOOR_QUARTERS, "Quarters Floor");
+INERT(FloorWC, Tile::TILE_FLOOR_WC, "WC Floor");
+INERT(FloorRNR, Tile::TILE_FLOOR_RNR, "RNR Floor");
+INERT(FloorCorridor, Tile::TILE_FLOOR_CORRIDOR, "Corridor Floor");
+INERT(FloorEngine, Tile::TILE_FLOOR_ENGINE, "Engine Floor");
+INERT(FloorHospital, Tile::TILE_FLOOR_HOSPITAL, "Hospital Floor");
+INERT(FloorGuard, Tile::TILE_FLOOR_GUARD, "Guard Floor");
+INERT(FloorMess, Tile::TILE_FLOOR_MESS, "Mess Floor");
+INERT(FloorBridge, Tile::TILE_FLOOR_BRIDGE, "Bridge Floor");
 
-INERT(Respawn, TILE_RESPAWN, "Respawn");
+INERT(Respawn, Tile::TILE_RESPAWN, "Respawn");
 
-INERT(Stick, TILE_STICK, "Stick");
-INERT(Toilet, TILE_TOILET, "Toilet");
-INERT(Multicooker, TILE_MULTICOOKER, "Multicooker");
-INERT(GuardStand, TILE_GUARD_STAND, "Guard Stand");
-INERT(BioChamber, TILE_BIO_CHAMBER, "Bio Chamber");
-INERT(Microscope, TILE_MICROSCOPE, "Microscope");
-INERT(Couch, TILE_COUCH, "Couch");
-INERT(Engine, TILE_ENGINE, "Engine");
-INERT(Dynamo, TILE_DYNAMO, "Dynamo");
-INERT(Hatch, TILE_HATCH, "Hatch");
-INERT(WallW, TILE_WALL_W, "Wall W");
-INERT(WallQ, TILE_WALL_Q, "Wall Q");
-INERT(WallA, TILE_WALL_A, "Wall A");
-INERT(WallZ, TILE_WALL_Z, "Wall Z");
-INERT(WallX, TILE_WALL_X, "Wall X");
-INERT(WallC, TILE_WALL_C, "Wall C");
-INERT(WallD, TILE_WALL_D, "Wall D");
-INERT(WallE, TILE_WALL_E, "Wall E");
-INERT(Jacuzzi, TILE_JACUZZI, "Jacuzzi");
+INERT(Stick, Tile::TILE_STICK, "Stick");
+INERT(Toilet, Tile::TILE_TOILET, "Toilet");
+INERT(Multicooker, Tile::TILE_MULTICOOKER, "Multicooker");
+INERT(GuardStand, Tile::TILE_GUARD_STAND, "Guard Stand");
+INERT(BioChamber, Tile::TILE_BIO_CHAMBER, "Bio Chamber");
+INERT(Microscope, Tile::TILE_MICROSCOPE, "Microscope");
+INERT(Couch, Tile::TILE_COUCH, "Couch");
+INERT(Engine, Tile::TILE_ENGINE, "Engine");
+INERT(Dynamo, Tile::TILE_DYNAMO, "Dynamo");
+INERT(Hatch, Tile::TILE_HATCH, "Hatch");
+INERT(WallW, Tile::TILE_WALL_W, "Wall W");
+INERT(WallQ, Tile::TILE_WALL_Q, "Wall Q");
+INERT(WallA, Tile::TILE_WALL_A, "Wall A");
+INERT(WallZ, Tile::TILE_WALL_Z, "Wall Z");
+INERT(WallX, Tile::TILE_WALL_X, "Wall X");
+INERT(WallC, Tile::TILE_WALL_C, "Wall C");
+INERT(WallD, Tile::TILE_WALL_D, "Wall D");
+INERT(WallE, Tile::TILE_WALL_E, "Wall E");
+INERT(Jacuzzi, Tile::TILE_JACUZZI, "Jacuzzi");
 
 enum {
 	RACE_HUMAN,
@@ -94,7 +94,7 @@ class Creature : public Object {
 		int hunger;
 		int fatigue;
 	public:
-		Creature(int x, int y, sf::Texture &tilemap) : Object(x, y, TILE_RESPAWN, tilemap) {
+		Creature(int x, int y, sf::Texture &tilemap) : Object(x, y, Tile::TILE_RESPAWN, tilemap) {
 			damage = 0;
 			hunger = 0;
 			fatigue = 0;

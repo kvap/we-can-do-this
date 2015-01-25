@@ -9,10 +9,10 @@ Object::Object(int x, int y, int tile, sf::Texture &tilemap) {
 	this->tile = tile;
 	timeout = 0;
 	sprite.setTexture(tilemap);
-	int top = tiles[tile][0] * TILE_SIZE;
-	int left = tiles[tile][1] * TILE_SIZE;
-	int width = tiles[tile][2] * TILE_SIZE;
-	int height = tiles[tile][3] * TILE_SIZE;
+	int top = Tile::tiles[tile][0] * TILE_SIZE;
+	int left = Tile::tiles[tile][1] * TILE_SIZE;
+	int width = Tile::tiles[tile][2] * TILE_SIZE;
+	int height = Tile::tiles[tile][3] * TILE_SIZE;
 	sprite.setTextureRect(sf::IntRect(left, top, width, height));
 }
 

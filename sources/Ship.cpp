@@ -33,9 +33,18 @@ Object *Ship::getObject(int level, int x, int y) {
 
 void Ship::putObject(int x, int y, Object *object) {
 	if (tiles[currentLevel][width * y + x] != NULL) {
-		delete tiles[currentLevel][width * y + x];
+		return;
 	}
-	tiles[currentLevel][width * y + x] = object;
+
+	int tile = object->getTile();
+	int tilewid = Tile::tiles[tile][2];
+	int tilehei = Tile::tiles[tile][3];
+
+	for (int dx = 0; dx < tilewid; dx++) {
+		for (int dy = 0; dy < tilehei; dy++) {
+			tiles[currentLevel][width * (y + dy) + (x + dx)] = object;
+		}
+	}
 }
 
 void Ship::setCurrentLevel(int level) {
@@ -50,8 +59,9 @@ void Ship::draw(sf::RenderWindow &window) {
 	for (int l = 0; l <= currentLevel; l++) {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				if (tiles[l][row * width + col] != NULL) {
-					tiles[l][row * width + col]->draw(window);
+				Object *o = tiles[l][row * width + col];
+				if ((o != NULL) && (o->getX() == col) && (o->getY() == row)) {
+					o->draw(window);
 				}
 			}
 		}
@@ -77,99 +87,99 @@ void Ship::load(std::string filename, sf::Texture &tilemap) {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				switch (buf[row * width + col]) {
-					case TILE_EMPTY:
+					case Tile::TILE_EMPTY:
 						break;
-					case TILE_FLOOR_JAIL:
+					case Tile::TILE_FLOOR_JAIL:
 						putObject(col, row, new FloorJail(col, row, tilemap));
 						break;
-					case TILE_FLOOR_LAB:
+					case Tile::TILE_FLOOR_LAB:
 						putObject(col, row, new FloorLab(col, row, tilemap));
 						break;
-					case TILE_FLOOR_QUARTERS:
+					case Tile::TILE_FLOOR_QUARTERS:
 						putObject(col, row, new FloorQuarters(col, row, tilemap));
 						break;
-					case TILE_FLOOR_WC:
+					case Tile::TILE_FLOOR_WC:
 						putObject(col, row, new FloorWC(col, row, tilemap));
 						break;
-					case TILE_FLOOR_RNR:
+					case Tile::TILE_FLOOR_RNR:
 						putObject(col, row, new FloorRNR(col, row, tilemap));
 						break;
-					case TILE_FLOOR_CORRIDOR:
+					case Tile::TILE_FLOOR_CORRIDOR:
 						putObject(col, row, new FloorCorridor(col, row, tilemap));
 						break;
-					case TILE_FLOOR_ENGINE:
+					case Tile::TILE_FLOOR_ENGINE:
 						putObject(col, row, new FloorEngine(col, row, tilemap));
 						break;
-					case TILE_FLOOR_HOSPITAL:
+					case Tile::TILE_FLOOR_HOSPITAL:
 						putObject(col, row, new FloorHospital(col, row, tilemap));
 						break;
-					case TILE_FLOOR_GUARD:
+					case Tile::TILE_FLOOR_GUARD:
 						putObject(col, row, new FloorGuard(col, row, tilemap));
 						break;
-					case TILE_FLOOR_MESS:
+					case Tile::TILE_FLOOR_MESS:
 						putObject(col, row, new FloorMess(col, row, tilemap));
 						break;
-					case TILE_FLOOR_BRIDGE:
+					case Tile::TILE_FLOOR_BRIDGE:
 						putObject(col, row, new FloorBridge(col, row, tilemap));
 						break;
-					case TILE_RESPAWN:
+					case Tile::TILE_RESPAWN:
 						putObject(col, row, new Respawn(col, row, tilemap));
 						break;
-					case TILE_STICK:
+					case Tile::TILE_STICK:
 						putObject(col, row, new Stick(col, row, tilemap));
 						break;
-					case TILE_TOILET:
+					case Tile::TILE_TOILET:
 						putObject(col, row, new Toilet(col, row, tilemap));
 						break;
-					case TILE_MULTICOOKER:
+					case Tile::TILE_MULTICOOKER:
 						putObject(col, row, new Multicooker(col, row, tilemap));
 						break;
-					case TILE_GUARD_STAND:
+					case Tile::TILE_GUARD_STAND:
 						putObject(col, row, new GuardStand(col, row, tilemap));
 						break;
-					case TILE_BIO_CHAMBER:
+					case Tile::TILE_BIO_CHAMBER:
 						putObject(col, row, new BioChamber(col, row, tilemap));
 						break;
-					case TILE_MICROSCOPE:
+					case Tile::TILE_MICROSCOPE:
 						putObject(col, row, new Microscope(col, row, tilemap));
 						break;
-					case TILE_COUCH:
+					case Tile::TILE_COUCH:
 						putObject(col, row, new Couch(col, row, tilemap));
 						break;
-					case TILE_ENGINE:
+					case Tile::TILE_ENGINE:
 						putObject(col, row, new Engine(col, row, tilemap));
 						break;
-					case TILE_DYNAMO:
+					case Tile::TILE_DYNAMO:
 						putObject(col, row, new Dynamo(col, row, tilemap));
 						break;
-					case TILE_HATCH:
+					case Tile::TILE_HATCH:
 						putObject(col, row, new Hatch(col, row, tilemap));
 						break;
-					case TILE_WALL_W:
+					case Tile::TILE_WALL_W:
 						putObject(col, row, new WallW(col, row, tilemap));
 						break;
-					case TILE_WALL_Q:
+					case Tile::TILE_WALL_Q:
 						putObject(col, row, new WallQ(col, row, tilemap));
 						break;
-					case TILE_WALL_A:
+					case Tile::TILE_WALL_A:
 						putObject(col, row, new WallA(col, row, tilemap));
 						break;
-					case TILE_WALL_Z:
+					case Tile::TILE_WALL_Z:
 						putObject(col, row, new WallZ(col, row, tilemap));
 						break;
-					case TILE_WALL_X:
+					case Tile::TILE_WALL_X:
 						putObject(col, row, new WallX(col, row, tilemap));
 						break;
-					case TILE_WALL_C:
+					case Tile::TILE_WALL_C:
 						putObject(col, row, new WallC(col, row, tilemap));
 						break;
-					case TILE_WALL_D:
+					case Tile::TILE_WALL_D:
 						putObject(col, row, new WallD(col, row, tilemap));
 						break;
-					case TILE_WALL_E:
+					case Tile::TILE_WALL_E:
 						putObject(col, row, new WallE(col, row, tilemap));
 						break;
-					case TILE_JACUZZI:
+					case Tile::TILE_JACUZZI:
 						putObject(col, row, new Jacuzzi(col, row, tilemap));
 						break;
 				}
@@ -189,10 +199,10 @@ void Ship::save(std::string filename) {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				Object *o = getObject(l, col, row);
-				if (o != NULL) {
+				if ((o != NULL) && (o->getX() == col) && (o->getY() == row)) {
 					buf[row * width + col] = o->getTile();
 				} else {
-					buf[row * width + col] = TILE_EMPTY;
+					buf[row * width + col] = Tile::TILE_EMPTY;
 				}
 			}
 		}
