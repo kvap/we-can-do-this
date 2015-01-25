@@ -45,7 +45,8 @@ int GamePlay::run(sf::RenderWindow &window) {
 
 	sf::Sprite sky(skytex);
 
-	Human human(64, 66, tilemap, &ship);
+	Human human(76, 48, tilemap, &ship);
+	Creature *player = &human;
 
 	sf::Clock clock;
 	while (window.isOpen()) {
@@ -97,8 +98,21 @@ int GamePlay::run(sf::RenderWindow &window) {
 		if (godown) dy++;
 		if (goleft) dx--;
 		if (goright) dx++;
-		if ((dx || dy) && !human.isMoving()) {
-			human.move(human.getX() + dx, human.getY() + dy, 0.5);
+		if ((dx || dy) && !player->isMoving()) {
+			int newx = player->getX() + dx;
+			int newy = player->getY() + dy;
+			Object *o = ship.getObject(LEVEL_FG, newx, newy);
+			if (o) {
+				goup = godown = goleft = goright = false;
+				if (o->usable(player)) {
+					std::cout << "use " << o->getName() << std::endl;
+				} else {
+					std::cout << "kick " << o->getName() << std::endl;
+				}
+				// use object
+			} else {
+				player->move(newx, newy, 0.5);
+			}
 		}
 
 		float dt = clock.getElapsedTime().asSeconds();
@@ -106,15 +120,16 @@ int GamePlay::run(sf::RenderWindow &window) {
 		clock.restart();
 
 		sf::View view = window.getView();
-		int x = human.getX(), y = human.getY();
-		sky.setPosition(sf::Vector2f(x * TILE_SIZE - (int)skytex.getSize().x / 2, y * TILE_SIZE - (int)skytex.getSize().y / 2));
-		view.setCenter(sf::Vector2f((x + 0.5) * TILE_SIZE, (y + 0.5) * TILE_SIZE));
+		float ix, iy;
+		player->interPos(ix, iy);
+		sky.setPosition(sf::Vector2f(ix * TILE_SIZE - (int)skytex.getSize().x / 2, iy * TILE_SIZE - (int)skytex.getSize().y / 2));
+		view.setCenter(sf::Vector2f((ix + 0.5) * TILE_SIZE, (iy + 0.5) * TILE_SIZE));
 		window.setView(view);
 
 		window.clear();
 		window.draw(sky);
 		ship.draw(window);
-		human.draw(window);
+		player->draw(window);
 		window.draw(text);
 		window.display();
 	}

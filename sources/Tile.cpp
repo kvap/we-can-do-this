@@ -1,5 +1,7 @@
 #include "Tile.hpp"
 
+namespace Tile {
+
 int tiles[][4] = {
 	/* tiley, tilex, width, height */
 	{0,  0, 1, 1}, // TILE_FLOOR_JAIL,
@@ -35,3 +37,5 @@ int tiles[][4] = {
 	{1, 12, 2, 1}, // TILE_JACUZZI
 	{2, 10, 1, 1}, // TILE_HATCH_OPEN,
 };
+
+}

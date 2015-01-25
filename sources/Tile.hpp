@@ -3,6 +3,8 @@
 
 #define TILE_SIZE 64
 
+namespace Tile {
+
 enum {
 	TILE_FLOOR_JAIL,
 	TILE_FLOOR_LAB,
@@ -40,5 +42,7 @@ enum {
 };
 
 extern int tiles[][4];
+
+}
 
 #endif
