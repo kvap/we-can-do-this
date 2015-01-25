@@ -5,18 +5,13 @@
 #include <string>
 #include <fstream>
 
-using namespace std;
-
-class Loggable
-{
-public:
-	Loggable(const string objectName);
-	virtual void Log();
-	
-protected:
-	void Log(const string info);
-private:
-	string _objectName;
+class Loggable {
+	public:
+		Loggable(const std::string objectName);
+	protected:
+		void Log(const std::string info);
+	private:
+		std::string _objectName;
 };
 
 #endif

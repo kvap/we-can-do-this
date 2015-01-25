@@ -7,6 +7,7 @@ Object::Object(int x, int y, int tile, sf::Texture &tilemap) {
 	this->oldx = x;
 	this->oldy = y;
 	this->tile = tile;
+	timeout = 0;
 	sprite.setTexture(tilemap);
 	int top = tiles[tile][0] * TILE_SIZE;
 	int left = tiles[tile][1] * TILE_SIZE;
@@ -15,21 +16,36 @@ Object::Object(int x, int y, int tile, sf::Texture &tilemap) {
 	sprite.setTextureRect(sf::IntRect(left, top, width, height));
 }
 
-void Object::draw(sf::RenderWindow &window) {
-	const float movetime = 1;
+float interpolate(float a, float progress, float b) {
+	return a * (1 - progress) + b * progress;
+}
+
+void Object::interPos(float &ix, float &iy) {
 	float elapsed = clock.getElapsedTime().asSeconds();
-	float progress = elapsed / movetime;
+	float progress = elapsed / timeout;
 	if (progress > 1) {
 		progress = 1;
 	}
-	sprite.setPosition((x * progress + oldx * (1 - progress)) * TILE_SIZE, (y * progress + oldy * (1 - progress)) * TILE_SIZE);
+	ix = interpolate(oldx, progress, x);
+	iy = interpolate(oldy, progress, y);
+}
+
+void Object::draw(sf::RenderWindow &window) {
+	float ix, iy;
+	interPos(ix, iy);
+	sprite.setPosition(ix * TILE_SIZE, iy * TILE_SIZE);
 	window.draw(sprite);
 }
 
-void Object::move(int newx, int newy) {
+void Object::move(int newx, int newy, float time) {
 	oldx = x;
 	oldy = y;
 	x = newx;
 	y = newy;
+	timeout = time;
 	clock.restart();
+}
+
+bool Object::isMoving() {
+	return clock.getElapsedTime().asSeconds() < timeout;
 }

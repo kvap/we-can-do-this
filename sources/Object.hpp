@@ -13,17 +13,21 @@ class Object {
 		int oldx, oldy;
 		int x, y;
 		int tile;
+		float timeout;
 		sf::Clock clock;
 	public:
 		Object(int x, int y, int tile, sf::Texture &tilemap);
+		virtual ~Object() {};
 		void draw(sf::RenderWindow &window);
 		int getTile() { return tile; };
 		int getX() { return x; };
 		int getY() { return y; };
+		void interPos(float &x, float &y); // interpolate x, y when moving
 		virtual std::string getName() { return "object"; };
 		virtual void use(Creature *user) = 0;
 		virtual bool usable(Creature *user) { return false; };
-		virtual void move(int newx, int newy);
+		virtual void move(int newx, int newy, float time);
+		bool isMoving();
 };
 
 // A macro for avoiding lots of boilerplate code here.
@@ -105,7 +109,7 @@ class Creature : public Object {
 		};
 		virtual int getRace() = 0;
 		int getJob() { return job; };
-		int setJob(int job) { this->job = job; };
+		void setJob(int job) { this->job = job; };
 		virtual bool usable(Creature *user) { return true; };
 };
 
