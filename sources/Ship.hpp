@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Object.hpp"
+#include "Loggable.hpp"
 
 enum {
 	LEVEL_BG,
@@ -13,7 +14,7 @@ enum {
 	LEVELS
 };
 
-class Ship {
+class Ship : public Loggable {
 	private:
 		Object **tiles[LEVELS];
 		int currentLevel;

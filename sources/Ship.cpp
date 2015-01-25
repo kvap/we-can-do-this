@@ -4,7 +4,7 @@
 
 const int levelSize = 128;
 
-Ship::Ship() {
+Ship::Ship() : Loggable("Ship") {
 	currentLevel = LEVEL_BG;
 	width = levelSize;
 	height = levelSize;
@@ -59,6 +59,8 @@ void Ship::draw(sf::RenderWindow &window) {
 }
 
 void Ship::load(std::string filename, sf::Texture &tilemap) {
+	Log("loading");
+
 	std::ifstream infile;
 	infile.open(filename, std::ios::in | std::ios::binary);
 
@@ -143,8 +145,29 @@ void Ship::load(std::string filename, sf::Texture &tilemap) {
 					case TILE_HATCH:
 						putObject(col, row, new Hatch(col, row, tilemap));
 						break;
-					case TILE_WALL:
-						putObject(col, row, new Wall(col, row, tilemap));
+					case TILE_WALL_W:
+						putObject(col, row, new WallW(col, row, tilemap));
+						break;
+					case TILE_WALL_Q:
+						putObject(col, row, new WallQ(col, row, tilemap));
+						break;
+					case TILE_WALL_A:
+						putObject(col, row, new WallA(col, row, tilemap));
+						break;
+					case TILE_WALL_Z:
+						putObject(col, row, new WallZ(col, row, tilemap));
+						break;
+					case TILE_WALL_X:
+						putObject(col, row, new WallX(col, row, tilemap));
+						break;
+					case TILE_WALL_C:
+						putObject(col, row, new WallC(col, row, tilemap));
+						break;
+					case TILE_WALL_D:
+						putObject(col, row, new WallD(col, row, tilemap));
+						break;
+					case TILE_WALL_E:
+						putObject(col, row, new WallE(col, row, tilemap));
 						break;
 					case TILE_JACUZZI:
 						putObject(col, row, new Jacuzzi(col, row, tilemap));
@@ -153,6 +176,7 @@ void Ship::load(std::string filename, sf::Texture &tilemap) {
 			}
 		}
 	}
+	Log("loaded");
 }
 
 void Ship::save(std::string filename) {

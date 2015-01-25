@@ -127,46 +127,72 @@ int Editor::run(sf::RenderWindow &window) {
 					}
 				}
 				if (ship.getCurrentLevel() == LEVEL_FG) {
-					switch (event.key.code) {
-						case sf::Keyboard::P:
-							ship.putObject(x, y, new Respawn(x, y, tilemap));
-							break;
-						case sf::Keyboard::S:
-							ship.putObject(x, y, new Stick(x, y, tilemap));
-							break;
-						case sf::Keyboard::T:
-							ship.putObject(x, y, new Toilet(x, y, tilemap));
-							break;
-						case sf::Keyboard::M:
-							ship.putObject(x, y, new Multicooker(x, y, tilemap));
-							break;
-						case sf::Keyboard::G:
-							ship.putObject(x, y, new GuardStand(x, y, tilemap));
-							break;
-						case sf::Keyboard::B:
-							ship.putObject(x, y, new BioChamber(x, y, tilemap));
-							break;
-						case sf::Keyboard::Z:
-							ship.putObject(x, y, new Microscope(x, y, tilemap));
-							break;
-						case sf::Keyboard::C:
-							ship.putObject(x, y, new Couch(x, y, tilemap));
-							break;
-						case sf::Keyboard::E:
-							ship.putObject(x, y, new Engine(x, y, tilemap));
-							break;
-						case sf::Keyboard::D:
-							ship.putObject(x, y, new Dynamo(x, y, tilemap));
-							break;
-						case sf::Keyboard::H:
-							ship.putObject(x, y, new Hatch(x, y, tilemap));
-							break;
-						case sf::Keyboard::W:
-							ship.putObject(x, y, new Wall(x, y, tilemap));
-							break;
-						case sf::Keyboard::J:
-							ship.putObject(x, y, new Jacuzzi(x, y, tilemap));
-							break;
+					if (event.key.shift) {
+						switch (event.key.code) {
+							case sf::Keyboard::W:
+								ship.putObject(x, y, new WallW(x, y, tilemap));
+								break;
+							case sf::Keyboard::Q:
+								ship.putObject(x, y, new WallQ(x, y, tilemap));
+								break;
+							case sf::Keyboard::A:
+								ship.putObject(x, y, new WallA(x, y, tilemap));
+								break;
+							case sf::Keyboard::Z:
+								ship.putObject(x, y, new WallZ(x, y, tilemap));
+								break;
+							case sf::Keyboard::X:
+								ship.putObject(x, y, new WallX(x, y, tilemap));
+								break;
+							case sf::Keyboard::C:
+								ship.putObject(x, y, new WallC(x, y, tilemap));
+								break;
+							case sf::Keyboard::D:
+								ship.putObject(x, y, new WallD(x, y, tilemap));
+								break;
+							case sf::Keyboard::E:
+								ship.putObject(x, y, new WallE(x, y, tilemap));
+								break;
+						}
+					} else {
+						switch (event.key.code) {
+							case sf::Keyboard::P:
+								ship.putObject(x, y, new Respawn(x, y, tilemap));
+								break;
+							case sf::Keyboard::S:
+								ship.putObject(x, y, new Stick(x, y, tilemap));
+								break;
+							case sf::Keyboard::T:
+								ship.putObject(x, y, new Toilet(x, y, tilemap));
+								break;
+							case sf::Keyboard::M:
+								ship.putObject(x, y, new Multicooker(x, y, tilemap));
+								break;
+							case sf::Keyboard::G:
+								ship.putObject(x, y, new GuardStand(x, y, tilemap));
+								break;
+							case sf::Keyboard::B:
+								ship.putObject(x, y, new BioChamber(x, y, tilemap));
+								break;
+							case sf::Keyboard::Z:
+								ship.putObject(x, y, new Microscope(x, y, tilemap));
+								break;
+							case sf::Keyboard::C:
+								ship.putObject(x, y, new Couch(x, y, tilemap));
+								break;
+							case sf::Keyboard::E:
+								ship.putObject(x, y, new Engine(x, y, tilemap));
+								break;
+							case sf::Keyboard::D:
+								ship.putObject(x, y, new Dynamo(x, y, tilemap));
+								break;
+							case sf::Keyboard::H:
+								ship.putObject(x, y, new Hatch(x, y, tilemap));
+								break;
+							case sf::Keyboard::J:
+								ship.putObject(x, y, new Jacuzzi(x, y, tilemap));
+								break;
+						}
 					}
 				}
 			}
@@ -189,7 +215,7 @@ int Editor::run(sf::RenderWindow &window) {
 
 		sf::View view = window.getView();
 		cursor.setPosition(sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE));
-		sky.setPosition(sf::Vector2f(x * TILE_SIZE - skytex.getSize().x / 2, y * TILE_SIZE - skytex.getSize().y / 2));
+		sky.setPosition(sf::Vector2f(x * TILE_SIZE - (int)skytex.getSize().x / 2, y * TILE_SIZE - (int)skytex.getSize().y / 2));
 		view.setCenter(sf::Vector2f((x + 0.5) * TILE_SIZE, (y + 0.5) * TILE_SIZE));
 		window.setView(view);
 
@@ -253,7 +279,9 @@ int Editor::run(sf::RenderWindow &window) {
 			cellinfo += std::string("\ne - engine");
 			cellinfo += std::string("\nd - dynamo");
 			cellinfo += std::string("\nh - hatch");
-			cellinfo += std::string("\nw - wall");
+			cellinfo += std::string("\nQWE - walls");
+			cellinfo += std::string("\nA D - walls");
+			cellinfo += std::string("\nZXC - walls");
 			cellinfo += std::string("\nj - jacuzzi");
 		}
 

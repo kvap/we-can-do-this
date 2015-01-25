@@ -24,6 +24,13 @@ int tiles[][4] = {
 	{1,  8, 1, 1}, // TILE_ENGINE,
 	{1,  9, 1, 1}, // TILE_DYNAMO,
 	{1, 10, 1, 1}, // TILE_HATCH,
-	{1, 11, 1, 1}, // TILE_WALL,
+	{2,  1, 1, 1}, // TILE_WALL_U,
+	{5,  0, 1, 1}, // TILE_WALL_UL,
+	{6,  0, 1, 1}, // TILE_WALL_L,
+	{7,  0, 1, 1}, // TILE_WALL_DL,
+	{2,  1, 1, 1}, // TILE_WALL_D,
+	{7,  1, 1, 1}, // TILE_WALL_DR,
+	{6,  1, 1, 1}, // TILE_WALL_R,
+	{5,  1, 1, 1}, // TILE_WALL_UR,
 	{1, 12, 2, 1}, // TILE_JACUZZI
 };
