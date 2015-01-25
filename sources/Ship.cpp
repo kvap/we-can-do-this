@@ -32,6 +32,15 @@ bool Ship::inertPlace(int x, int y) {
 	if (gravity) {
 		return false;
 	}
+	if ((x < 0) || (x >= width) || (y < 0) || (y >= height)) {
+		return false;
+	}
+	/*
+	if (tiles[LEVEL_FG][y * width + x] != NULL) {
+		return false;
+	}
+	// */
+	//*
 	for (int dx = -1; dx <  2; dx++) {
 		for (int dy = -1; dy < 2; dy++) {
 			if ((x + dx < 0) || (x + dx >= width) || (y + dy < 0) || (y + dy >= height)) {
@@ -42,6 +51,7 @@ bool Ship::inertPlace(int x, int y) {
 			}
 		}
 	}
+	// */
 	return true;
 }
 

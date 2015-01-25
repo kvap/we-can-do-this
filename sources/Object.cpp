@@ -52,9 +52,7 @@ bool Object::isMoving() {
 	return clock.getElapsedTime().asSeconds() < timeout;
 }
 
-
 void Hatch::use(Creature *user) {
-	std::cerr << "HATCH USED" << std::endl;
 	ship->setCurrentLevel(LEVEL_MG);
 	ship->putObject(x, y, new HatchOpen(x, y, *sprite.getTexture(), ship));
 	ship->setCurrentLevel(LEVEL_FG);

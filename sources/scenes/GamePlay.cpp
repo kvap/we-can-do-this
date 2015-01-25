@@ -45,7 +45,7 @@ int GamePlay::run(sf::RenderWindow &window) {
 
 	sf::Sprite sky(skytex);
 
-	Human human(76, 48, tilemap, &ship);
+	Human human(77, 48, tilemap, &ship);
 	Creature *player = &human;
 
 	sf::Clock clock;
@@ -60,23 +60,27 @@ int GamePlay::run(sf::RenderWindow &window) {
 			} else if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
 					case sf::Keyboard::Left:
-						if (!ship.inertPlace(player->getX() + 1, player->getY())) {
+						if (!ship.inertPlace(player->getX(), player->getY())) {
 							goleft = true;
+							goright = false;
 						}
 						break;
 					case sf::Keyboard::Right:
-						if (!ship.inertPlace(player->getX() - 1, player->getY())) {
+						if (!ship.inertPlace(player->getX(), player->getY())) {
 							goright = true;
+							goleft = false;
 						}
 						break;
 					case sf::Keyboard::Up:
-						if (!ship.inertPlace(player->getX(), player->getY() + 1)) {
+						if (!ship.inertPlace(player->getX(), player->getY())) {
 							goup = true;
+							godown = false;
 						}
 						break;
 					case sf::Keyboard::Down:
-						if (!ship.inertPlace(player->getX(), player->getY() - 1)) {
+						if (!ship.inertPlace(player->getX(), player->getY())) {
 							godown = true;
+							goup = false;
 						}
 						break;
 				}
