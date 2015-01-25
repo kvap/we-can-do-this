@@ -106,6 +106,7 @@ int GamePlay::run(sf::RenderWindow &window) {
 				goup = godown = goleft = goright = false;
 				if (o->usable(player)) {
 					std::cout << "use " << o->getName() << std::endl;
+					o->use(player);
 				} else {
 					std::cout << "kick " << o->getName() << std::endl;
 				}

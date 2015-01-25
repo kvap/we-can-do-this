@@ -4,6 +4,7 @@
 #include <Scene.hpp>
 #include <SFML/Graphics.hpp>
 
+class Object;
 #include "Object.hpp"
 #include "Loggable.hpp"
 
@@ -13,8 +14,6 @@ enum {
 	LEVEL_FG,
 	LEVELS
 };
-
-class Object;
 
 class Ship : public Loggable {
 	private:

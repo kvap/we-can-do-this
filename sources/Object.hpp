@@ -4,24 +4,23 @@
 #include <algorithm> 
 #include <SFML/Graphics.hpp>
 
+class Ship;
 #include "Ship.hpp"
 #include "Tile.hpp"
 
-class Ship;
 class Creature;
 class Object {
-	private:
-		sf::Sprite sprite;
-		Ship *ship;
 	protected:
+		sf::Sprite sprite;
 		int oldx, oldy;
 		int x, y;
 		int tile;
 		float timeout;
 		sf::Clock clock;
+		Ship *ship;
 	public:
-		Object(int x, int y, int tile, sf::Texture &tilemap, Ship* ship);
-		virtual ~Object() {};
+		Object(int x, int y, int tile, const sf::Texture &tilemap, Ship* ship);
+		virtual ~Object() {}
 		void draw(sf::RenderWindow &window);
 		int getTile() { return tile; };
 		int getX() { return x; };
@@ -38,7 +37,7 @@ class Object {
 #define INERT(KLASS, ENUM, NAME) \
 	class KLASS : public Object {\
 		public:\
-			KLASS(int x, int y, sf::Texture &tilemap, Ship* ship)\
+			KLASS(int x, int y, const sf::Texture &tilemap, Ship* ship)\
 				: Object(x, y, ENUM, tilemap, ship) {};\
 			std::string getName() { return NAME; };\
 			void use(Creature *user) {};\
@@ -97,8 +96,8 @@ class Creature : public Object {
 		int hunger;
 		int fatigue;
 	public:
-		Creature(int x, int y, sf::Texture &tilemap, Ship* ship)
-				: Object(x, y, TILE_RESPAWN, tilemap, ship) {
+		Creature(int x, int y, const sf::Texture &tilemap, Ship* ship)
+				: Object(x, y, Tile::TILE_RESPAWN, tilemap, ship) {
 			damage = 0;
 			hunger = 0;
 			fatigue = 0;
@@ -120,7 +119,7 @@ class Creature : public Object {
 
 class Human : public Creature {
 	public:
-		Human(int x, int y, sf::Texture &tilemap, Ship* ship)
+		Human(int x, int y, const sf::Texture &tilemap, Ship* ship)
 			: Creature(x, y, tilemap, ship) {};
 		std::string getName() { return "Human"; };
 		virtual void use(Creature *user) {
@@ -136,7 +135,7 @@ class Human : public Creature {
 
 class Robot : public Creature {
 	public:
-		Robot(int x, int y, sf::Texture &tilemap, Ship* ship)
+		Robot(int x, int y, const sf::Texture &tilemap, Ship* ship)
 			: Creature(x, y, tilemap, ship) {};
 		std::string getName() { return "Human"; };
 		virtual void use(Creature *user) {
@@ -152,11 +151,11 @@ class Robot : public Creature {
 
 class BioChamber : public Object {
 	public:
-		BioChamber(int x, int y, sf::Texture &tilemap, Ship* ship)
-			: Object(x, y, TILE_BIO_CHAMBER, tilemap, ship) { };
+		BioChamber(int x, int y, const sf::Texture &tilemap, Ship* ship)
+			: Object(x, y, Tile::TILE_BIO_CHAMBER, tilemap, ship) { };
 
 		std::string getName() { return "Bio Chamber"; };
-		void use(Creature *user) {
+		virtual void use(Creature *user) {
 			switch (user->getRace()) {
 				case RACE_VEG:
 				case RACE_HUMAN:
@@ -170,30 +169,22 @@ class BioChamber : public Object {
 
 class Hatch : public Object {
 	public:
-		Hatch(int x, int y, sf::Texture &tilemap, Ship* ship)
-			: Object(x, y, TILE_HATCH, tilemap, ship) { };
+		Hatch(int x, int y, const sf::Texture &tilemap, Ship* ship)
+			: Object(x, y, Tile::TILE_HATCH, tilemap, ship) { };
 
 		std::string getName() { return "Hatch"; };
-		void use(Creature *user) {
-			ship.setCurrentLevel(LEVEL_MG);
-			ship.putObject(x, y, new HatchOpen(x, y, tilemap, ship));
-			ship.setCurrentLevel(LEVEL_FG);
-			ship.putObject(x, y, NULL);
-		}
+		virtual void use(Creature *user);
+		virtual bool usable(Creature *user) { return true; };
 };
 
 class HatchOpen : public Object {
 	public:
-		HatchOpen(int x, int y, sf::Texture &tilemap, Ship* ship)
-			: Object(x, y, TILE_HATCH_OPEN, tilemap, ship) { };
+		HatchOpen(int x, int y, const sf::Texture &tilemap, Ship* ship)
+			: Object(x, y, Tile::TILE_HATCH_OPEN, tilemap, ship) { };
 
 		std::string getName() { return "Hatch open"; };
-		void use(Creature *user) {
-			ship.setCurrentLevel(LEVEL_FG);
-			ship.putObject(x, y, new Hatch(x, y, tilemap, ship));
-			ship.setCurrentLevel(LEVEL_MG);
-			ship.putObject(x, y, NULL);
-		}
+		virtual void use(Creature *user);
+		virtual bool usable(Creature *user) { return true; };
 };
 
 #endif

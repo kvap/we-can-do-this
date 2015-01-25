@@ -1,6 +1,6 @@
 CXX = g++
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lGL
-CFLAGS = -c -g -std=c++11 -Isources
+CFLAGS = -Wfatal-errors -c -g -std=c++11 -Isources
 LDFLAGS = -Wall $(LIBS)
 
 TARGET_DIR = target

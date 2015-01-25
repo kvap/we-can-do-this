@@ -32,6 +32,12 @@ Object *Ship::getObject(int level, int x, int y) {
 }
 
 void Ship::putObject(int x, int y, Object *object) {
+	if (object == NULL) {
+		// FIXME: free the object memory
+		tiles[currentLevel][width * y + x] = NULL;
+		return;
+	}
+
 	if (tiles[currentLevel][width * y + x] != NULL) {
 		return;
 	}

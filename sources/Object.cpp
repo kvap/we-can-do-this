@@ -1,7 +1,9 @@
+#include <iostream>
+
 #include "Object.hpp"
 #include "Tile.hpp"
 
-Object::Object(int x, int y, int tile, sf::Texture &tilemap, Ship* ship) {
+Object::Object(int x, int y, int tile, const sf::Texture &tilemap, Ship* ship) {
 	this->x = x;
 	this->y = y;
 	this->oldx = x;
@@ -48,4 +50,20 @@ void Object::move(int newx, int newy, float time) {
 
 bool Object::isMoving() {
 	return clock.getElapsedTime().asSeconds() < timeout;
+}
+
+
+void Hatch::use(Creature *user) {
+	std::cerr << "HATCH USED" << std::endl;
+	ship->setCurrentLevel(LEVEL_MG);
+	ship->putObject(x, y, new HatchOpen(x, y, *sprite.getTexture(), ship));
+	ship->setCurrentLevel(LEVEL_FG);
+	ship->putObject(x, y, NULL);
+}
+
+void HatchOpen::use(Creature *user) {
+	ship->setCurrentLevel(LEVEL_FG);
+	ship->putObject(x, y, new Hatch(x, y, *sprite.getTexture(), ship));
+	ship->setCurrentLevel(LEVEL_MG);
+	ship->putObject(x, y, NULL);
 }
