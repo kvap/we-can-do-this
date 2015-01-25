@@ -1,4 +1,4 @@
-CXX = g++
+CXX = clang++
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lGL
 CFLAGS = -c -g -std=c++11 -Isources
 LDFLAGS = -Wall $(LIBS)

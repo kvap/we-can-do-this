@@ -32,7 +32,10 @@ int GamePlay::run(sf::RenderWindow &window) {
 	Ship ship;
 	ship.load("ship.map", tilemap);
 
-	int dx = 0, dy = 0;
+	bool goup = false;
+	bool godown = false;
+	bool goleft = false;
+	bool goright = false;
 
 	sf::Text text;
 	text.setFont(font);
@@ -56,16 +59,16 @@ int GamePlay::run(sf::RenderWindow &window) {
 			} else if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
 					case sf::Keyboard::Left:
-						dx -= 1;
+						goleft = true;
 						break;
 					case sf::Keyboard::Right:
-						dx += 1;
+						goright = true;
 						break;
 					case sf::Keyboard::Up:
-						dy -= 1;
+						goup = true;
 						break;
 					case sf::Keyboard::Down:
-						dy += 1;
+						godown = true;
 						break;
 				}
 			} else if (event.type == sf::Event::KeyReleased) {
@@ -74,19 +77,28 @@ int GamePlay::run(sf::RenderWindow &window) {
 						return FINAL_INFO_SCENE;
 						break;
 					case sf::Keyboard::Left:
-						dx += 1;
+						goleft = false;
 						break;
 					case sf::Keyboard::Right:
-						dx -= 1;
+						goright = false;
 						break;
 					case sf::Keyboard::Up:
-						dy += 1;
+						goup = false;
 						break;
 					case sf::Keyboard::Down:
-						dy -= 1;
+						godown = false;
 						break;
 				}
 			}
+		}
+
+		int dx = 0, dy = 0;
+		if (goup) dy--;
+		if (godown) dy++;
+		if (goleft) dx--;
+		if (goright) dx++;
+		if ((dx || dy) && !human.isMoving()) {
+			human.move(human.getX() + dx, human.getY() + dy, 0.5);
 		}
 
 		float dt = clock.getElapsedTime().asSeconds();
