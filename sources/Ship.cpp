@@ -8,6 +8,7 @@ Ship::Ship() : Loggable("Ship") {
 	currentLevel = LEVEL_BG;
 	width = levelSize;
 	height = levelSize;
+	gravity = false;
 	for (int l = 0; l < LEVELS; l++) {
 		tiles[l] = (Object**) calloc(width * height, sizeof(Object*));
 	}
@@ -17,6 +18,31 @@ Ship::~Ship() {
 	for (int l = 0; l < LEVELS; l++) {
 		free(tiles[l]);
 	}
+}
+
+void Ship::setGravity(bool value) {
+	gravity = value;
+}
+
+bool Ship::getGravity() {
+	return gravity;
+}
+
+bool Ship::inertPlace(int x, int y) {
+	if (gravity) {
+		return false;
+	}
+	for (int dx = -1; dx <  2; dx++) {
+		for (int dy = -1; dy < 2; dy++) {
+			if ((x + dx < 0) || (x + dx >= width) || (y + dy < 0) || (y + dy >= height)) {
+				continue;
+			}
+			if (tiles[LEVEL_FG][(y + dy) * width + x + dx] != NULL) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 int Ship::getWidth() {

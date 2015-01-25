@@ -21,14 +21,18 @@ class Ship : public Loggable {
 		int currentLevel;
 		int width;
 		int height;
+		bool gravity;
 	public:
 		Ship();
 		~Ship();
 		void load(std::string filename, sf::Texture &tilemap);
 		void save(std::string filename);
+		void setGravity(bool value);
+		bool getGravity();
 		int getWidth();
 		int getHeight();
 		Object *getObject(int level, int x, int y);
+		bool inertPlace(int x, int y); // cannot start or stop moving here
 		void putObject(int x, int y, Object *object);
 		int getCurrentLevel();
 		void setCurrentLevel(int level);

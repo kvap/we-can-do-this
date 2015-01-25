@@ -60,16 +60,24 @@ int GamePlay::run(sf::RenderWindow &window) {
 			} else if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
 					case sf::Keyboard::Left:
-						goleft = true;
+						if (!ship.inertPlace(player->getX() + 1, player->getY())) {
+							goleft = true;
+						}
 						break;
 					case sf::Keyboard::Right:
-						goright = true;
+						if (!ship.inertPlace(player->getX() - 1, player->getY())) {
+							goright = true;
+						}
 						break;
 					case sf::Keyboard::Up:
-						goup = true;
+						if (!ship.inertPlace(player->getX(), player->getY() + 1)) {
+							goup = true;
+						}
 						break;
 					case sf::Keyboard::Down:
-						godown = true;
+						if (!ship.inertPlace(player->getX(), player->getY() - 1)) {
+							godown = true;
+						}
 						break;
 				}
 			} else if (event.type == sf::Event::KeyReleased) {
@@ -77,19 +85,31 @@ int GamePlay::run(sf::RenderWindow &window) {
 					case sf::Keyboard::Escape:
 						return FINAL_INFO_SCENE;
 						break;
+				}
+				/*
+				if (!ship.inertPlace(player->getX(), player->getY())) {
 					case sf::Keyboard::Left:
-						goleft = false;
+						if (!ship.inertPlace(player->getX() + 1, player->getY())) {
+							goleft = false;
+						}
 						break;
 					case sf::Keyboard::Right:
-						goright = false;
+						if (!ship.inertPlace(player->getX() - 1, player->getY())) {
+							goright = false;
+						}
 						break;
 					case sf::Keyboard::Up:
-						goup = false;
+						if (!ship.inertPlace(player->getX(), player->getY() - 1)) {
+							goup = false;
+						}
 						break;
 					case sf::Keyboard::Down:
-						godown = false;
+						if (!ship.inertPlace(player->getX(), player->getY() + 1)) {
+							godown = false;
+						}
 						break;
 				}
+				*/
 			}
 		}
 
