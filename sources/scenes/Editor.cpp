@@ -215,7 +215,7 @@ int Editor::run(sf::RenderWindow &window) {
 
 		sf::View view = window.getView();
 		cursor.setPosition(sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE));
-		sky.setPosition(sf::Vector2f(x * TILE_SIZE - skytex.getSize().x / 2, y * TILE_SIZE - skytex.getSize().y / 2));
+		sky.setPosition(sf::Vector2f(x * TILE_SIZE - (int)skytex.getSize().x / 2, y * TILE_SIZE - (int)skytex.getSize().y / 2));
 		view.setCenter(sf::Vector2f((x + 0.5) * TILE_SIZE, (y + 0.5) * TILE_SIZE));
 		window.setView(view);
 

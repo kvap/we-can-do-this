@@ -5,19 +5,25 @@
 
 #include "Tile.hpp"
 
+class Creature;
 class Object {
 	private:
 		sf::Sprite sprite;
 	protected:
+		int oldx, oldy;
 		int x, y;
 		int tile;
+		sf::Clock clock;
 	public:
 		Object(int x, int y, int tile, sf::Texture &tilemap);
 		void draw(sf::RenderWindow &window);
 		int getTile() { return tile; };
+		int getX() { return x; };
+		int getY() { return y; };
 		virtual std::string getName() { return "object"; };
-		virtual void use(Object &user) = 0;
-		virtual bool usable(Object &user) { return false; };
+		virtual void use(Creature *user) = 0;
+		virtual bool usable(Creature *user) { return false; };
+		virtual void move(int newx, int newy);
 };
 
 // A macro for avoiding lots of boilerplate code here.
@@ -26,7 +32,7 @@ class Object {
 		public:\
 			KLASS(int x, int y, sf::Texture &tilemap) : Object(x, y, ENUM, tilemap) {};\
 			std::string getName() { return NAME; };\
-			void use(Object &user) {};\
+			void use(Creature *user) {};\
 	}
 
 INERT(FloorJail, TILE_FLOOR_JAIL, "Jail Floor");
@@ -62,5 +68,75 @@ INERT(WallC, TILE_WALL_C, "Wall C");
 INERT(WallD, TILE_WALL_D, "Wall D");
 INERT(WallE, TILE_WALL_E, "Wall E");
 INERT(Jacuzzi, TILE_JACUZZI, "Jacuzzi");
+
+enum {
+	RACE_HUMAN,
+	RACE_ROBOT,
+	RACE_VEG
+};
+
+enum {
+	JOB_PILOT,
+	JOB_MEDIC,
+	JOB_ENGINEER,
+	JOB_COOK,
+	JOB_GUARD
+};
+
+class Creature : public Object {
+	protected:
+		int job;
+		int damage;
+		int hunger;
+		int fatigue;
+	public:
+		Creature(int x, int y, sf::Texture &tilemap) : Object(x, y, TILE_RESPAWN, tilemap) {
+			damage = 0;
+			hunger = 0;
+			fatigue = 0;
+		};
+		virtual std::string getName() { return "Creature"; };
+		virtual void use(Creature *user) {
+			switch (user->getJob()) {
+				case JOB_GUARD:
+					damage += 10;
+					break;
+			}
+		};
+		virtual int getRace() = 0;
+		int getJob() { return job; };
+		int setJob(int job) { this->job = job; };
+		virtual bool usable(Creature *user) { return true; };
+};
+
+class Human : public Creature {
+	public:
+		Human(int x, int y, sf::Texture &tilemap) : Creature(x, y, tilemap) {};
+		std::string getName() { return "Human"; };
+		virtual void use(Creature *user) {
+			switch (user->getJob()) {
+				case JOB_MEDIC:
+					damage = 0;
+					break;
+			}
+		};
+		int getRace() { return RACE_HUMAN; };
+		bool usable(Creature *user) { return true; };
+};
+
+class Robot : public Creature {
+	public:
+		Robot(int x, int y, sf::Texture &tilemap) : Creature(x, y, tilemap) {};
+		std::string getName() { return "Human"; };
+		virtual void use(Creature *user) {
+			switch (user->getJob()) {
+				case JOB_ENGINEER:
+					damage = 0;
+					break;
+			}
+		};
+		int getRace() { return RACE_ROBOT; };
+		bool usable(Creature *user) { return true; };
+};
 
 #endif

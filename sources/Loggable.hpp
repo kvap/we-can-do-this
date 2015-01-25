@@ -11,7 +11,7 @@ class Loggable
 {
 public:
 	Loggable(const string objectName);
-	virtual void Log() = 0;
+	virtual void Log();
 	
 protected:
 	void Log(const string info);

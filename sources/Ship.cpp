@@ -4,7 +4,7 @@
 
 const int levelSize = 128;
 
-Ship::Ship() {
+Ship::Ship() : Loggable("Ship") {
 	currentLevel = LEVEL_BG;
 	width = levelSize;
 	height = levelSize;
@@ -59,6 +59,8 @@ void Ship::draw(sf::RenderWindow &window) {
 }
 
 void Ship::load(std::string filename, sf::Texture &tilemap) {
+	Log("loading");
+
 	std::ifstream infile;
 	infile.open(filename, std::ios::in | std::ios::binary);
 
@@ -174,6 +176,7 @@ void Ship::load(std::string filename, sf::Texture &tilemap) {
 			}
 		}
 	}
+	Log("loaded");
 }
 
 void Ship::save(std::string filename) {
