@@ -33,4 +33,5 @@ int tiles[][4] = {
 	{6,  1, 1, 1}, // TILE_WALL_R,
 	{5,  1, 1, 1}, // TILE_WALL_UR,
 	{1, 12, 2, 1}, // TILE_JACUZZI
+	{2, 10, 1, 1}, // TILE_HATCH_OPEN,
 };

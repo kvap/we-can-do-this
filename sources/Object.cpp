@@ -1,7 +1,7 @@
 #include "Object.hpp"
 #include "Tile.hpp"
 
-Object::Object(int x, int y, int tile, sf::Texture &tilemap) {
+Object::Object(int x, int y, int tile, sf::Texture &tilemap, Ship* ship) {
 	this->x = x;
 	this->y = y;
 	this->oldx = x;
@@ -14,8 +14,8 @@ Object::Object(int x, int y, int tile, sf::Texture &tilemap) {
 	int width = tiles[tile][2] * TILE_SIZE;
 	int height = tiles[tile][3] * TILE_SIZE;
 	sprite.setTextureRect(sf::IntRect(left, top, width, height));
+	this->ship = ship;
 }
-
 float interpolate(float a, float progress, float b) {
 	return a * (1 - progress) + b * progress;
 }

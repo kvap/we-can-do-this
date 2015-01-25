@@ -1,14 +1,18 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
+#include <algorithm> 
 #include <SFML/Graphics.hpp>
 
+#include "Ship.hpp"
 #include "Tile.hpp"
 
+class Ship;
 class Creature;
 class Object {
 	private:
 		sf::Sprite sprite;
+		Ship *ship;
 	protected:
 		int oldx, oldy;
 		int x, y;
@@ -16,7 +20,7 @@ class Object {
 		float timeout;
 		sf::Clock clock;
 	public:
-		Object(int x, int y, int tile, sf::Texture &tilemap);
+		Object(int x, int y, int tile, sf::Texture &tilemap, Ship* ship);
 		virtual ~Object() {};
 		void draw(sf::RenderWindow &window);
 		int getTile() { return tile; };
@@ -34,7 +38,8 @@ class Object {
 #define INERT(KLASS, ENUM, NAME) \
 	class KLASS : public Object {\
 		public:\
-			KLASS(int x, int y, sf::Texture &tilemap) : Object(x, y, ENUM, tilemap) {};\
+			KLASS(int x, int y, sf::Texture &tilemap, Ship* ship)\
+				: Object(x, y, ENUM, tilemap, ship) {};\
 			std::string getName() { return NAME; };\
 			void use(Creature *user) {};\
 	}
@@ -57,12 +62,10 @@ INERT(Stick, TILE_STICK, "Stick");
 INERT(Toilet, TILE_TOILET, "Toilet");
 INERT(Multicooker, TILE_MULTICOOKER, "Multicooker");
 INERT(GuardStand, TILE_GUARD_STAND, "Guard Stand");
-INERT(BioChamber, TILE_BIO_CHAMBER, "Bio Chamber");
 INERT(Microscope, TILE_MICROSCOPE, "Microscope");
 INERT(Couch, TILE_COUCH, "Couch");
 INERT(Engine, TILE_ENGINE, "Engine");
 INERT(Dynamo, TILE_DYNAMO, "Dynamo");
-INERT(Hatch, TILE_HATCH, "Hatch");
 INERT(WallW, TILE_WALL_W, "Wall W");
 INERT(WallQ, TILE_WALL_Q, "Wall Q");
 INERT(WallA, TILE_WALL_A, "Wall A");
@@ -94,7 +97,8 @@ class Creature : public Object {
 		int hunger;
 		int fatigue;
 	public:
-		Creature(int x, int y, sf::Texture &tilemap) : Object(x, y, TILE_RESPAWN, tilemap) {
+		Creature(int x, int y, sf::Texture &tilemap, Ship* ship)
+				: Object(x, y, TILE_RESPAWN, tilemap, ship) {
 			damage = 0;
 			hunger = 0;
 			fatigue = 0;
@@ -110,12 +114,14 @@ class Creature : public Object {
 		virtual int getRace() = 0;
 		int getJob() { return job; };
 		void setJob(int job) { this->job = job; };
+		void heal(int h) { damage = std::max(damage - h, 0); };
 		virtual bool usable(Creature *user) { return true; };
 };
 
 class Human : public Creature {
 	public:
-		Human(int x, int y, sf::Texture &tilemap) : Creature(x, y, tilemap) {};
+		Human(int x, int y, sf::Texture &tilemap, Ship* ship)
+			: Creature(x, y, tilemap, ship) {};
 		std::string getName() { return "Human"; };
 		virtual void use(Creature *user) {
 			switch (user->getJob()) {
@@ -130,7 +136,8 @@ class Human : public Creature {
 
 class Robot : public Creature {
 	public:
-		Robot(int x, int y, sf::Texture &tilemap) : Creature(x, y, tilemap) {};
+		Robot(int x, int y, sf::Texture &tilemap, Ship* ship)
+			: Creature(x, y, tilemap, ship) {};
 		std::string getName() { return "Human"; };
 		virtual void use(Creature *user) {
 			switch (user->getJob()) {
@@ -141,6 +148,52 @@ class Robot : public Creature {
 		};
 		int getRace() { return RACE_ROBOT; };
 		bool usable(Creature *user) { return true; };
+};
+
+class BioChamber : public Object {
+	public:
+		BioChamber(int x, int y, sf::Texture &tilemap, Ship* ship)
+			: Object(x, y, TILE_BIO_CHAMBER, tilemap, ship) { };
+
+		std::string getName() { return "Bio Chamber"; };
+		void use(Creature *user) {
+			switch (user->getRace()) {
+				case RACE_VEG:
+				case RACE_HUMAN:
+					user->heal(10);
+					break;
+				case RACE_ROBOT:
+					user->heal(-10);
+			}
+		}
+};
+
+class Hatch : public Object {
+	public:
+		Hatch(int x, int y, sf::Texture &tilemap, Ship* ship)
+			: Object(x, y, TILE_HATCH, tilemap, ship) { };
+
+		std::string getName() { return "Hatch"; };
+		void use(Creature *user) {
+			ship.setCurrentLevel(LEVEL_MG);
+			ship.putObject(x, y, new HatchOpen(x, y, tilemap, ship));
+			ship.setCurrentLevel(LEVEL_FG);
+			ship.putObject(x, y, NULL);
+		}
+};
+
+class HatchOpen : public Object {
+	public:
+		HatchOpen(int x, int y, sf::Texture &tilemap, Ship* ship)
+			: Object(x, y, TILE_HATCH_OPEN, tilemap, ship) { };
+
+		std::string getName() { return "Hatch open"; };
+		void use(Creature *user) {
+			ship.setCurrentLevel(LEVEL_FG);
+			ship.putObject(x, y, new Hatch(x, y, tilemap, ship));
+			ship.setCurrentLevel(LEVEL_MG);
+			ship.putObject(x, y, NULL);
+		}
 };
 
 #endif

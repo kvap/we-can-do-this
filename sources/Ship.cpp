@@ -80,97 +80,97 @@ void Ship::load(std::string filename, sf::Texture &tilemap) {
 					case TILE_EMPTY:
 						break;
 					case TILE_FLOOR_JAIL:
-						putObject(col, row, new FloorJail(col, row, tilemap));
+						putObject(col, row, new FloorJail(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_LAB:
-						putObject(col, row, new FloorLab(col, row, tilemap));
+						putObject(col, row, new FloorLab(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_QUARTERS:
-						putObject(col, row, new FloorQuarters(col, row, tilemap));
+						putObject(col, row, new FloorQuarters(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_WC:
-						putObject(col, row, new FloorWC(col, row, tilemap));
+						putObject(col, row, new FloorWC(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_RNR:
-						putObject(col, row, new FloorRNR(col, row, tilemap));
+						putObject(col, row, new FloorRNR(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_CORRIDOR:
-						putObject(col, row, new FloorCorridor(col, row, tilemap));
+						putObject(col, row, new FloorCorridor(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_ENGINE:
-						putObject(col, row, new FloorEngine(col, row, tilemap));
+						putObject(col, row, new FloorEngine(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_HOSPITAL:
-						putObject(col, row, new FloorHospital(col, row, tilemap));
+						putObject(col, row, new FloorHospital(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_GUARD:
-						putObject(col, row, new FloorGuard(col, row, tilemap));
+						putObject(col, row, new FloorGuard(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_MESS:
-						putObject(col, row, new FloorMess(col, row, tilemap));
+						putObject(col, row, new FloorMess(col, row, tilemap, this));
 						break;
 					case TILE_FLOOR_BRIDGE:
-						putObject(col, row, new FloorBridge(col, row, tilemap));
+						putObject(col, row, new FloorBridge(col, row, tilemap, this));
 						break;
 					case TILE_RESPAWN:
-						putObject(col, row, new Respawn(col, row, tilemap));
+						putObject(col, row, new Respawn(col, row, tilemap, this));
 						break;
 					case TILE_STICK:
-						putObject(col, row, new Stick(col, row, tilemap));
+						putObject(col, row, new Stick(col, row, tilemap, this));
 						break;
 					case TILE_TOILET:
-						putObject(col, row, new Toilet(col, row, tilemap));
+						putObject(col, row, new Toilet(col, row, tilemap, this));
 						break;
 					case TILE_MULTICOOKER:
-						putObject(col, row, new Multicooker(col, row, tilemap));
+						putObject(col, row, new Multicooker(col, row, tilemap, this));
 						break;
 					case TILE_GUARD_STAND:
-						putObject(col, row, new GuardStand(col, row, tilemap));
+						putObject(col, row, new GuardStand(col, row, tilemap, this));
 						break;
 					case TILE_BIO_CHAMBER:
-						putObject(col, row, new BioChamber(col, row, tilemap));
+						putObject(col, row, new BioChamber(col, row, tilemap, this));
 						break;
 					case TILE_MICROSCOPE:
-						putObject(col, row, new Microscope(col, row, tilemap));
+						putObject(col, row, new Microscope(col, row, tilemap, this));
 						break;
 					case TILE_COUCH:
-						putObject(col, row, new Couch(col, row, tilemap));
+						putObject(col, row, new Couch(col, row, tilemap, this));
 						break;
 					case TILE_ENGINE:
-						putObject(col, row, new Engine(col, row, tilemap));
+						putObject(col, row, new Engine(col, row, tilemap, this));
 						break;
 					case TILE_DYNAMO:
-						putObject(col, row, new Dynamo(col, row, tilemap));
+						putObject(col, row, new Dynamo(col, row, tilemap, this));
 						break;
 					case TILE_HATCH:
-						putObject(col, row, new Hatch(col, row, tilemap));
+						putObject(col, row, new Hatch(col, row, tilemap, this));
 						break;
 					case TILE_WALL_W:
-						putObject(col, row, new WallW(col, row, tilemap));
+						putObject(col, row, new WallW(col, row, tilemap, this));
 						break;
 					case TILE_WALL_Q:
-						putObject(col, row, new WallQ(col, row, tilemap));
+						putObject(col, row, new WallQ(col, row, tilemap, this));
 						break;
 					case TILE_WALL_A:
-						putObject(col, row, new WallA(col, row, tilemap));
+						putObject(col, row, new WallA(col, row, tilemap, this));
 						break;
 					case TILE_WALL_Z:
-						putObject(col, row, new WallZ(col, row, tilemap));
+						putObject(col, row, new WallZ(col, row, tilemap, this));
 						break;
 					case TILE_WALL_X:
-						putObject(col, row, new WallX(col, row, tilemap));
+						putObject(col, row, new WallX(col, row, tilemap, this));
 						break;
 					case TILE_WALL_C:
-						putObject(col, row, new WallC(col, row, tilemap));
+						putObject(col, row, new WallC(col, row, tilemap, this));
 						break;
 					case TILE_WALL_D:
-						putObject(col, row, new WallD(col, row, tilemap));
+						putObject(col, row, new WallD(col, row, tilemap, this));
 						break;
 					case TILE_WALL_E:
-						putObject(col, row, new WallE(col, row, tilemap));
+						putObject(col, row, new WallE(col, row, tilemap, this));
 						break;
 					case TILE_JACUZZI:
-						putObject(col, row, new Jacuzzi(col, row, tilemap));
+						putObject(col, row, new Jacuzzi(col, row, tilemap, this));
 						break;
 				}
 			}

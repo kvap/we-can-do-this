@@ -14,6 +14,8 @@ enum {
 	LEVELS
 };
 
+class Object;
+
 class Ship : public Loggable {
 	private:
 		Object **tiles[LEVELS];

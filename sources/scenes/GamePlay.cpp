@@ -45,7 +45,7 @@ int GamePlay::run(sf::RenderWindow &window) {
 
 	sf::Sprite sky(skytex);
 
-	Human human(64, 66, tilemap);
+	Human human(64, 66, tilemap, &ship);
 
 	sf::Clock clock;
 	while (window.isOpen()) {
