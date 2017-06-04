@@ -1,6 +1,12 @@
 CXX = g++
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lGL
-CFLAGS = -Wfatal-errors -c -g -std=c++11 -Isources
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system 
+CFLAGS = -Wfatal-errors -c -g -std=c++14 -Isources
+ifeq ($(THEOS),Darwin)
+    LIBS += -lGL
+else
+    LIBS += -framework OpenGL -L/usr/local/Cellar/sfml/2.4.2/lib
+    CFLAGS += -framework OpenGL -I/usr/local/Cellar/sfml/2.4.2/include
+endif
 LDFLAGS = -Wall $(LIBS)
 
 TARGET_DIR = target
