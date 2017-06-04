@@ -18,3 +18,5 @@ Ship Editor
 
 The ship editor is available if you press `E` on the intro screen. See
 `sources/scenes/Editor.cpp` for the key mapping.
+
+![](https://cloud.githubusercontent.com/assets/663660/26763829/824112de-495a-11e7-8b3d-79f0f78d98be.png)
